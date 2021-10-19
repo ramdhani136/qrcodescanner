@@ -1,0 +1,13 @@
+export {default as HomeBanners} from './Home/HomeBanner';
+export {default as HomeGopay} from './Home/HomeGopay';
+export {default as HomeInformation} from './Home/HomeInformation';
+export {default as HomeMain} from './Home/HomeMain';
+export {default as HomeNews} from './Home/HomeNews';
+export {default as HomeSearchBar} from './Home/HomeSearchBar';
+export {default as BarMenu} from './BarMenu';
+export {default as NearByRestourantScroll} from './NearByRestourantScroll';
+export {default as TitleScreen} from './Others/TitleScreen';
+export {default as ScrollVerticalMenu} from './HomeNew/ScrollVerticalMenus';
+export {default as MainMenu} from './Others/MainMenu';
+export {default as OpenTasks} from './Others/OpenTasks';
+export {default as List} from './Others/List';
