@@ -16,7 +16,6 @@ import {SelectDropdown} from '../../components/moleculs';
 import {CheckBox} from 'react-native-elements';
 import {setNumber} from '../../utils/setNomor';
 import {useNavigation} from '@react-navigation/native';
-import {combineReducers} from 'redux';
 
 const CreateAssetScreen = ({data}) => {
   const navigation = useNavigation();

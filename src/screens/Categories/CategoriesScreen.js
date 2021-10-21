@@ -14,7 +14,6 @@ const CategoriesScreen = () => {
   const [filter, setFilter] = useState({});
   const [toggleFilter, setToggleFilter] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-
   const publicFilter = useSelector(selectValue);
   const [isReload, setIsReload] = useState(false);
 
@@ -36,6 +35,18 @@ const CategoriesScreen = () => {
     getCategorys();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getCategorys();
+    }, 30000);
+
+    if (!isReload) {
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [isReload]);
+
   const handleSearch = e => {
     setFilter({...filter, search: e});
   };
@@ -45,16 +56,16 @@ const CategoriesScreen = () => {
   };
 
   const getDelete = async e => {
-    const hapus = await fetch(`${Api_Url}items/${e}`, {
+    const hapus = await fetch(`${Api_Url}categorys/${e}`, {
       method: 'DELETE',
     });
-    const refreshItem = await getItem();
+    const refreshItem = await getCategorys();
     return refreshItem;
   };
 
   const handleDelete = e => {
     Alert.alert('Delete', 'Are you sure?', [
-      {text: 'NO', onPress: () => getItem(), style: 'cancel'},
+      {text: 'NO', onPress: () => getCategorys(), style: 'cancel'},
       {text: 'YES', onPress: () => getDelete(e)},
     ]);
   };
@@ -64,7 +75,25 @@ const CategoriesScreen = () => {
   };
 
   const handleSubmit = () => {
-    navigation.navigate('CreateAssetScreen');
+    navigation.navigate('CreateCategoriesScreen');
+  };
+
+  const filterdata = data => {
+    return _.filter(data, function (query) {
+      var name = filter.search
+          ? query.name.toLowerCase().includes(filter.search.toLowerCase())
+          : true,
+        description = filter.search
+          ? query.description
+              .toLowerCase()
+              .includes(filter.search.toLowerCase())
+          : true,
+        status = filter.search
+          ? query.status.toLowerCase().includes(filter.search.toLowerCase())
+          : true;
+
+      return name || description || status;
+    });
   };
 
   return (
@@ -74,16 +103,14 @@ const CategoriesScreen = () => {
         <List
           isLoading={isLoading}
           handleFilter={handleFilter}
-          toggleFilter={toggleFilter}
           data={{
-            api: data,
+            api: filterdata(data),
             viewScreen: 'ViewAssetScreen',
           }}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
           handleSearch={handleSearch}
           handleData={getCategorys}
-          doc="Assets"
           toggleReload={toggleReload}
         />
       </View>

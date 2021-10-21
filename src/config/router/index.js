@@ -12,6 +12,7 @@ import {
   ViewAssetScreen,
 } from '../../screens';
 import CategoriesScreen from '../../screens/Categories/CategoriesScreen';
+import CreateCategorieScreen from '../../screens/Categories/CreateCategorieScreen';
 
 const Router = () => {
   const Stack = createNativeStackNavigator();
@@ -56,6 +57,11 @@ const Router = () => {
         <Stack.Screen
           name="CategoriesScreen"
           component={CategoriesScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CreateCategoriesScreen"
+          component={CreateCategorieScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

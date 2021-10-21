@@ -157,6 +157,7 @@ const AssetScreen = () => {
           barcodeScreen="assets"
         />
         <List
+          isFilter={true}
           isLoading={isLoading}
           handleFilter={handleFilter}
           toggleFilter={toggleFilter}
@@ -170,7 +171,6 @@ const AssetScreen = () => {
           handleData={getItem}
           doc="Assets"
           toggleReload={toggleReload}
-          isFilter={true}
         />
       </View>
 
