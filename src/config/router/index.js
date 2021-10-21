@@ -10,9 +10,10 @@ import {
   HomeScreenNew,
   LoginScreen,
   ViewAssetScreen,
+  ViewCategoriesScreen,
+  CategoriesScreen,
+  CreateCategorieScreen,
 } from '../../screens';
-import CategoriesScreen from '../../screens/Categories/CategoriesScreen';
-import CreateCategorieScreen from '../../screens/Categories/CreateCategorieScreen';
 
 const Router = () => {
   const Stack = createNativeStackNavigator();
@@ -62,6 +63,11 @@ const Router = () => {
         <Stack.Screen
           name="CreateCategoriesScreen"
           component={CreateCategorieScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ViewCategoriesScreen"
+          component={ViewCategoriesScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

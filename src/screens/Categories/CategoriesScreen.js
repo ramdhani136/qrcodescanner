@@ -1,20 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {selectUser} from '../../config/redux/slices/UserSlices';
 import {Alert, View, Text} from 'react-native';
 import {List, MainMenu, TitleScreen} from '../../components/organisms';
 import {Api_Url} from '../../config/services';
 import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
-import {selectValue} from '../../config/redux/slices/valueSlice';
 
 const CategoriesScreen = () => {
   const [data, setData] = useState([]);
   const navigation = useNavigation();
   const [filter, setFilter] = useState({});
-  const [toggleFilter, setToggleFilter] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  const publicFilter = useSelector(selectValue);
   const [isReload, setIsReload] = useState(false);
 
   const getCategorys = () => {
@@ -70,10 +65,6 @@ const CategoriesScreen = () => {
     ]);
   };
 
-  const handleFilter = () => {
-    setToggleFilter(!toggleFilter);
-  };
-
   const handleSubmit = () => {
     navigation.navigate('CreateCategoriesScreen');
   };
@@ -83,16 +74,11 @@ const CategoriesScreen = () => {
       var name = filter.search
           ? query.name.toLowerCase().includes(filter.search.toLowerCase())
           : true,
-        description = filter.search
-          ? query.description
-              .toLowerCase()
-              .includes(filter.search.toLowerCase())
-          : true,
         status = filter.search
           ? query.status.toLowerCase().includes(filter.search.toLowerCase())
           : true;
 
-      return name || description || status;
+      return name || status;
     });
   };
 
@@ -101,16 +87,17 @@ const CategoriesScreen = () => {
       <View style={{flex: 1}}>
         <TitleScreen title="Categories" search={true} qrcode={false} />
         <List
+          isFilter={false}
           isLoading={isLoading}
-          handleFilter={handleFilter}
           data={{
             api: filterdata(data),
-            viewScreen: 'ViewAssetScreen',
+            viewScreen: 'ViewCategoriesScreen',
           }}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
           handleSearch={handleSearch}
           handleData={getCategorys}
+          doc="Category"
           toggleReload={toggleReload}
         />
       </View>
