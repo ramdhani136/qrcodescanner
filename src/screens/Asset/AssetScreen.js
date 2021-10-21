@@ -137,7 +137,7 @@ const AssetScreen = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       getItem();
-    }, 10000);
+    }, 30000);
 
     if (!isReload) {
       clearInterval(interval);
