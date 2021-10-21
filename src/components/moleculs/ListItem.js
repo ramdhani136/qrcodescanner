@@ -267,7 +267,7 @@ const ListItem = ({
                 </Text>
               </View>
             </TouchableOpacity>
-            {console.log(itemChecked)}
+            {/* {console.log(itemChecked)} */}
           </Swipeable>
         );
       }}
