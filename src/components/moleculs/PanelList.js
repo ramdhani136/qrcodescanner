@@ -5,7 +5,13 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 import AssetsFilter from '../organisms/Items/AssetsFilter';
 
-const PanelList = ({handleSearch, toggleFilter, handleFilter, doc}) => {
+const PanelList = ({
+  handleSearch,
+  toggleFilter,
+  handleFilter,
+  doc,
+  isFilter,
+}) => {
   const [value, setValue] = useState('');
   useEffect(() => {
     handleSearch(value);
@@ -17,18 +23,21 @@ const PanelList = ({handleSearch, toggleFilter, handleFilter, doc}) => {
         style={{
           flexDirection: 'row',
         }}>
-        <TouchableOpacity
-          onPress={handleFilter}
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: -20,
-          }}>
-          <MaterialCommunityIcons
-            name="filter-variant"
-            style={{fontSize: 30, color: '#595a5a'}}
-          />
-        </TouchableOpacity>
+        {console.log('panel list')}
+        {isFilter ? (
+          <TouchableOpacity
+            onPress={handleFilter}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: -20,
+            }}>
+            <MaterialCommunityIcons
+              name="filter-variant"
+              style={{fontSize: 30, color: '#595a5a'}}
+            />
+          </TouchableOpacity>
+        ) : null}
         <TextInput
           value={value}
           onChangeText={text => setValue(text)}
@@ -45,7 +54,7 @@ const PanelList = ({handleSearch, toggleFilter, handleFilter, doc}) => {
             borderRadius: 10,
             backgroundColor: 'white',
             flex: 1,
-            marginLeft: 10,
+            marginLeft: isFilter ? 10 : 0,
           }}
         />
         {value ? (

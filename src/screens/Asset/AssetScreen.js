@@ -1,7 +1,7 @@
-import React, {useEffect, useState, memo} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {selectUser} from '../../config/redux/slices/UserSlices';
-import {Alert, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {List, MainMenu, TitleScreen} from '../../components/organisms';
 import {Api_Url} from '../../config/services';
 import {useNavigation} from '@react-navigation/native';
@@ -148,6 +148,7 @@ const AssetScreen = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: '#f9f9f9'}}>
+      {console.log('asset')}
       <View style={{flex: 1}}>
         <TitleScreen
           title="Assets"
@@ -169,6 +170,7 @@ const AssetScreen = () => {
           handleData={getItem}
           doc="Assets"
           toggleReload={toggleReload}
+          isFilter={true}
         />
       </View>
 

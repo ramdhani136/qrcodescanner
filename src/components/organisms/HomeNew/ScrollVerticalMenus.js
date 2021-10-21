@@ -34,6 +34,7 @@ const ScrollVerticalMenus = () => {
         titleColor="#dffbff"
       />
       <ScrollVerticalItem
+        onPress={() => navigation.navigate('CategoriesScreen')}
         Icon={Entypo}
         IconName="book"
         IconSize={25}

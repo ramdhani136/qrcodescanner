@@ -11,6 +11,7 @@ import {
   LoginScreen,
   ViewAssetScreen,
 } from '../../screens';
+import CategoriesScreen from '../../screens/Categories/CategoriesScreen';
 
 const Router = () => {
   const Stack = createNativeStackNavigator();
@@ -50,6 +51,11 @@ const Router = () => {
         <Stack.Screen
           name="CreateAssetScreen"
           component={CreateAssetScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CategoriesScreen"
+          component={CategoriesScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

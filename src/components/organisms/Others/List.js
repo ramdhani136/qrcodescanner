@@ -15,6 +15,7 @@ const List = ({
   isLoading,
   handleData,
   toggleReload,
+  isFilter,
 }) => {
   return (
     <View
@@ -24,7 +25,9 @@ const List = ({
         paddingBottom: 95,
         height: '102%',
       }}>
+      {console.log('list')}
       <PanelList
+        isFilter={isFilter}
         toggleFilter={toggleFilter}
         handleSearch={handleSearch}
         handleFilter={handleFilter}
