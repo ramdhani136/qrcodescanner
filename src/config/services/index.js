@@ -1,3 +1,3 @@
-const Api_Url = 'http://192.168.100.114:8000/api/';
+const Api_Url = 'http://backend.ekatunggal.com/api/';
 
 export {Api_Url};

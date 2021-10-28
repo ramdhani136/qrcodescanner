@@ -52,20 +52,6 @@ const LoginScreen = () => {
     });
   };
 
-  // const getUser = async () => {
-  //   try {
-  //     const api = 'http://192.168.100.58:8000/api/user';
-  //     const resultUser = await fetch(api);
-  //     const getUsers = await resultUser.json();
-  //     setUser(getUsers.data);
-  //     setLogin(true);
-  //   } catch (error) {
-  //     setUser(user);
-  //     setLogin(false);
-  //   }
-  //   return getUser();
-  // };
-
   useEffect(() => {
     getUser();
     dispatch(inUser(user));
