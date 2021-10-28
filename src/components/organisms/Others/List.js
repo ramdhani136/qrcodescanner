@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 import {View, Text} from 'react-native';
 import {FloatingButton} from '../../atoms';
@@ -25,7 +25,6 @@ const List = ({
         paddingBottom: 95,
         height: '102%',
       }}>
-      {console.log('list')}
       <PanelList
         isFilter={isFilter}
         toggleFilter={toggleFilter}
@@ -50,4 +49,4 @@ const List = ({
   );
 };
 
-export default List;
+export default memo(List);

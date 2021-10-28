@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, memo, useState} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Animated} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
@@ -137,6 +137,7 @@ const ListItem = ({
 
   return (
     <FlatList
+      removeClippedSubviews
       style={{paddingTop: 16}}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
@@ -275,4 +276,4 @@ const ListItem = ({
   );
 };
 
-export default ListItem;
+export default memo(ListItem);

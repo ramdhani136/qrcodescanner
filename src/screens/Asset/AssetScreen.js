@@ -42,7 +42,7 @@ const AssetScreen = () => {
 
   const handleDelete = e => {
     Alert.alert('Delete', 'Are you sure?', [
-      {text: 'NO', onPress: () => getItem(), style: 'cancel'},
+      {text: 'NO', style: 'cancel'},
       {text: 'YES', onPress: () => getDelete(e)},
     ]);
   };
@@ -148,7 +148,6 @@ const AssetScreen = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: '#f9f9f9'}}>
-      {console.log('asset')}
       <View style={{flex: 1}}>
         <TitleScreen
           title="Assets"

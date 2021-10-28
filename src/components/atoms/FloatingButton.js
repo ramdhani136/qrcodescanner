@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -105,7 +105,7 @@ const FloatingButton = ({
   );
 };
 
-export default FloatingButton;
+export default memo(FloatingButton);
 
 const styles = StyleSheet.create({
   container: {

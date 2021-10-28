@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, memo} from 'react';
 import {View, TouchableOpacity, TextInput} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -23,7 +23,6 @@ const PanelList = ({
         style={{
           flexDirection: 'row',
         }}>
-        {console.log('panel list')}
         {isFilter ? (
           <TouchableOpacity
             onPress={handleFilter}
@@ -80,4 +79,4 @@ const PanelList = ({
   );
 };
 
-export default PanelList;
+export default memo(PanelList);

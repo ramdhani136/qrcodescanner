@@ -33,6 +33,7 @@ const TitleScreen = ({
         }}>
         {title}
       </Text>
+      {console.log('titleasset')}
       <View style={{flexDirection: 'row', width: 'auto'}}>
         {search ? (
           <TouchableOpacity style={{width: 25, height: 25, marginRight: 10}}>
