@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import {selectUser} from '../../config/redux/slices/UserSlices';
 import {Alert, View} from 'react-native';
@@ -73,11 +73,6 @@ const AssetScreen = () => {
         code = filter.search
           ? query.code.toLowerCase().includes(filter.search.toLowerCase())
           : true,
-        // serialnumber = filter.search
-        //   ? query.serialnumber
-        //       .toLowerCase()
-        //       .includes(filter.search.toLowerCase())
-        //   : true,
         locationval = filter.search
           ? query.location.toLowerCase().includes(filter.search.toLowerCase())
           : true,
@@ -87,9 +82,6 @@ const AssetScreen = () => {
         categoryval = filter.search
           ? query.category.toLowerCase().includes(filter.search.toLowerCase())
           : true,
-        // type = filter.search
-        //   ? query.type.toLowerCase().includes(filter.search.toLowerCase())
-        //   : true,
         status = filter.search
           ? query.status.toLowerCase().includes(filter.search.toLowerCase())
           : true,

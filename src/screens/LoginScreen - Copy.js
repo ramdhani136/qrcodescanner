@@ -5,14 +5,12 @@ import {Input} from '../components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {inUser} from '../config/redux/slices/UserSlices';
-import {ActivityIndicator} from 'react-native';
 
 const LoginScreen = () => {
   const [value, setValue] = useState({});
   const [user, setUser] = useState({});
   const [login, setLogin] = useState(false);
   const dispatch = useDispatch();
-  const [isLoading, setIsloading] = useState(true);
 
   const navigation = useNavigation();
 
@@ -46,12 +44,10 @@ const LoginScreen = () => {
         .then(json => {
           setUser(json);
           setLogin(true);
-          setIsloading(false);
         })
         .catch(err => {
+          setUser(user);
           setLogin(false);
-          setIsloading(false);
-          console.log(err);
         });
     });
   };
@@ -64,20 +60,9 @@ const LoginScreen = () => {
     }
   }, [user, login]);
 
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <ActivityIndicator color="#999999" size="large" />
-      </View>
-    );
-  }
   return (
     <View style={styles.container}>
+      {console.log('login')}
       <View style={{width: '100%', paddingHorizontal: 25}}>
         <Input label="Username" name="username" handle={handleUsername} />
         <Input
