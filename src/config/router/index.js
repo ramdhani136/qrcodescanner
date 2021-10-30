@@ -23,7 +23,6 @@ const Router = () => {
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
-          // options={{title: 'Lets Login'}}
           options={{headerShown: false}}
         />
         <Stack.Screen

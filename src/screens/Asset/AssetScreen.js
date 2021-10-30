@@ -126,17 +126,17 @@ const AssetScreen = () => {
     getItem();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getItem();
-    }, 30000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     getItem();
+  //   }, 30000);
 
-    if (!isReload) {
-      clearInterval(interval);
-    }
+  //   if (!isReload) {
+  //     clearInterval(interval);
+  //   }
 
-    return () => clearInterval(interval);
-  }, [isReload]);
+  //   return () => clearInterval(interval);
+  // }, [isReload]);
 
   return (
     <View style={{flex: 1, backgroundColor: '#f9f9f9'}}>
