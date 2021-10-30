@@ -72,7 +72,7 @@ const LoginScreen = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator color="#999999" size="large" />
+        <ActivityIndicator color="#cccccc" size="large" />
       </View>
     );
   }
