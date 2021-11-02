@@ -46,6 +46,7 @@ const ScrollVerticalMenus = () => {
         titleColor="#dffbff"
       />
       <ScrollVerticalItem
+        onPress={() => navigation.navigate('LocationScreen')}
         Icon={Entypo}
         IconName="location"
         IconSize={25}
