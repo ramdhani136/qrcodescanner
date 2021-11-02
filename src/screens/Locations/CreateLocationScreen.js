@@ -23,7 +23,7 @@ const CreateLocationScreen = ({route}) => {
     status: 'Active',
     name: '',
     code_status: 1,
-    description: '',
+    description: null,
   };
 
   const [locations, setLocations] = useState([]);

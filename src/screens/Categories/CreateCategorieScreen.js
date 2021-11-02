@@ -23,7 +23,7 @@ const CreateCategorieScreen = ({route}) => {
     status: 'Active',
     name: '',
     code_status: 1,
-    description: '',
+    description: null,
   };
 
   const [categorys, setCategorys] = useState([]);
