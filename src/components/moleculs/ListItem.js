@@ -20,51 +20,51 @@ const ListItem = ({
   const [isChange, setIsChange] = useState(false);
   const [itemChecked, setItemChecked] = useState([]);
 
-  useEffect(() => {
-    setItems(
-      data.api.map(item => {
-        return {
-          ...item,
-          checked: false,
-        };
-      }),
-    );
-  }, [data.api]);
+  // useEffect(() => {
+  //   setItems(
+  //     data.api.map(item => {
+  //       return {
+  //         ...item,
+  //         checked: false,
+  //       };
+  //     }),
+  //   );
+  // }, [data.api]);
 
-  const onChangeItems = e => {
-    setItems(
-      items.map(d => {
-        if (d.id === e) {
-          if (d.checked) {
-            d.checked = false;
-          } else {
-            d.checked = true;
-          }
-        }
-        return d;
-      }),
-    );
+  // const onChangeItems = e => {
+  //   setItems(
+  //     items.map(d => {
+  //       if (d.id === e) {
+  //         if (d.checked) {
+  //           d.checked = false;
+  //         } else {
+  //           d.checked = true;
+  //         }
+  //       }
+  //       return d;
+  //     }),
+  //   );
 
-    setIsChange(!isChange);
-  };
+  //   setIsChange(!isChange);
+  // };
 
-  useEffect(() => {
-    toggleReload(false);
+  // useEffect(() => {
+  //   toggleReload(false);
 
-    const filter = items.filter(item => item.checked === true);
-    setItemChecked(filter);
+  //   const filter = items.filter(item => item.checked === true);
+  //   setItemChecked(filter);
 
-    if (filter.length > 0) {
-      toggleReload(false);
-    } else {
-      toggleReload(true);
-    }
-  }, [isChange]);
+  //   if (filter.length > 0) {
+  //     toggleReload(false);
+  //   } else {
+  //     toggleReload(true);
+  //   }
+  // }, [isChange]);
 
-  useEffect(() => {
-    const filter = items.filter(item => item.checked === true);
-    setItemChecked(filter);
-  }, [items]);
+  // useEffect(() => {
+  //   const filter = items.filter(item => item.checked === true);
+  //   setItemChecked(filter);
+  // }, [items]);
 
   const navigation = useNavigation();
   const renderLeftActions = (progress, dragX) => {
@@ -137,12 +137,11 @@ const ListItem = ({
 
   return (
     <FlatList
-      removeClippedSubviews
       style={{paddingTop: 16}}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       keyExtractor={item => item.id}
-      data={items}
+      data={data.api}
       refreshing={isLoading}
       onRefresh={handleData}
       renderItem={({item}) => {
@@ -164,11 +163,14 @@ const ListItem = ({
             renderRightActions={renderRightActions}>
             <TouchableOpacity
               onPress={() => {
-                itemChecked.length > 0
-                  ? onChangeItems(item.id)
-                  : navigation.navigate(data.viewScreen, item);
+                navigation.navigate(data.viewScreen, item);
               }}
-              onLongPress={() => onChangeItems(item.id)}
+              // onPress={() => {
+              //   itemChecked.length > 0
+              //     ? onChangeItems(item.id)
+              //     : navigation.navigate(data.viewScreen, item);
+              // }}
+              // onLongPress={() => onChangeItems(item.id)}
               style={{
                 // opacity: item.checked ? 0.6 : 1,
                 borderRadius: 7,

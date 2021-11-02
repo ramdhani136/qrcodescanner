@@ -60,18 +60,18 @@ const InfoItem = () => {
     </>
   );
 };
-const Mutasi = () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>Transfer</Text>
-    </View>
-  );
-};
+// const Mutasi = () => {
+//   return (
+//     <View
+//       style={{
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//       }}>
+//       <Text>Transfer</Text>
+//     </View>
+//   );
+// };
 const History = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

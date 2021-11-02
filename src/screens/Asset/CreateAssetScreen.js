@@ -370,6 +370,7 @@ const CreateAssetScreen = ({data}) => {
               editable={false}
               value={value.code}
             />
+
             <Input
               label="Name"
               name="name"

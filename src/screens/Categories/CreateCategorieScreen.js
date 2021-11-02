@@ -16,13 +16,14 @@ import {CheckBox} from 'react-native-elements';
 import {setNumber} from '../../utils/setNomor';
 import {useNavigation} from '@react-navigation/native';
 
-const CreateCategorieScreen = ({data}) => {
+const CreateCategorieScreen = ({route}) => {
+  const doc = route.params;
   const navigation = useNavigation();
   const defaultValue = {
     status: 'Active',
-    name: null,
+    name: '',
     code_status: 1,
-    description: null,
+    description: '',
   };
 
   const [categorys, setCategorys] = useState([]);
@@ -46,21 +47,21 @@ const CreateCategorieScreen = ({data}) => {
       });
   };
 
-  useEffect(() => {
-    getCategorys();
-    const isThere = categorys.filter(item => item.name == value.name);
-    isThere ? setIsDup(isThere.length) : 0;
+  const checkValidate = () => {
     if (
       (value.name === '') |
       (value.name === undefined) |
-      (value.name === null) |
-      (isDup === 1)
+      (value.name === null)
     ) {
       setValidasi({...validasi, name: true});
     } else {
       setValidasi({...validasi, name: false});
     }
-  }, [categorys]);
+  };
+
+  const toggleEdit = () => {
+    setCanEdit(!canEdit);
+  };
 
   const handleName = e => {
     setValue({...value, name: e});
@@ -88,74 +89,165 @@ const CreateCategorieScreen = ({data}) => {
           navigation.replace('CategoriesScreen');
         })
         .catch(err => {
-          console.log(err);
+          throw err;
         });
     }
   };
 
+  const handleDelete = () => {
+    Alert.alert('Delete', 'Are you sure?', [
+      {text: 'NO', onPress: () => getCategorys(), style: 'cancel'},
+      {text: 'YES', onPress: () => getDelete()},
+    ]);
+  };
+
+  const handleChange = () => {
+    if (JSON.stringify(doc) === JSON.stringify(value)) {
+      Alert.alert('Error', 'No data change');
+    } else {
+      getEdit();
+    }
+  };
+
+  const getDelete = async e => {
+    const hapus = await fetch(`${Api_Url}categorys/${doc.id}`, {
+      method: 'DELETE',
+    });
+    const showAlert = await Alert.alert('Delete', 'Item has been deleted ');
+    const redirectScreen = await navigation.replace('CategoriesScreen');
+    return redirectScreen;
+  };
+
+  const getEdit = async () => {
+    const updateValue = {
+      name: value.name,
+      description: value.description,
+      status: value.status,
+      code_status: value.code_status,
+    };
+    const edit = await fetch(`${Api_Url}categorys/${doc.id}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify(updateValue),
+    });
+    const showAlert = await Alert.alert('Changed', 'Data has been changed  ');
+    const redirectScreen = await navigation.replace('CategoriesScreen');
+    return redirectScreen;
+  };
+
+  useEffect(() => {
+    getCategorys();
+    const isThere = categorys.filter(
+      item => item.name.toLowerCase() == value.name.toLowerCase(),
+    );
+    isThere ? setIsDup(isThere.length) : 0;
+    if (
+      (value.name === '') |
+      (value.name === undefined) |
+      (value.name === null) |
+      (doc
+        ? value.name.toLowerCase() == doc.name.toLowerCase()
+          ? isDup === 2
+          : isDup === 1
+        : isDup === 1)
+    ) {
+      setValidasi({...validasi, name: true});
+    } else {
+      setValidasi({...validasi, name: false});
+    }
+  }, [categorys]);
+
+  useEffect(() => {
+    doc ? setValue(doc) : null;
+    if (doc) {
+      if (doc.status === 'Active') {
+        setChecked({active: true, disabled: false});
+      } else {
+        setChecked({active: false, disabled: true});
+      }
+      setCanEdit(false);
+      checkValidate();
+    }
+  }, []);
+
   return (
-    <View style={[styles.container, {paddingTop: data ? 16 : 0}]}>
-      {data ? null : (
-        <TitleScreen
-          title="New Category"
-          btnSubmit={true}
-          onSubmit={onSubmit}
-        />
-      )}
-      <ScrollView>
-        <View style={{flex: 1, marginHorizontal: 16}}>
-          <Input
-            label="Name"
-            name="name"
-            value={value.name}
-            invalid={validasi.name}
-            handle={handleName}
-            editable={canEdit}
+    <>
+      <View style={[styles.container, {paddingTop: doc ? 16 : 0}]}>
+        {doc ? null : (
+          <TitleScreen
+            title="New Category"
+            btnSubmit={true}
+            onSubmit={onSubmit}
           />
-          <Input
-            editable={canEdit}
-            label="Description"
-            value={value.description}
-            multiline={true}
-            numberOfLines={7}
-            handle={handleDesc}
-          />
-          <View style={{flexDirection: 'row', marginLeft: -11}}>
-            <CheckBox
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              title="Active"
-              checkedColor="gray"
-              checked={checked.active}
-              onPress={() => {
-                if (canEdit) {
-                  setChecked({active: true, disabled: false});
-                  setValue({...value, status: 'Active', code_status: 1});
-                } else {
-                  null;
-                }
-              }}
+        )}
+        <ScrollView>
+          <View style={{flex: 1, marginHorizontal: 16}}>
+            <Input
+              label="Name"
+              name="name"
+              value={value.name}
+              invalid={validasi.name}
+              handle={handleName}
+              editable={canEdit}
             />
-            <CheckBox
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              title="Disabled"
-              checkedColor="gray"
-              checked={checked.disabled}
-              onPress={() => {
-                if (canEdit) {
-                  setChecked({active: false, disabled: true});
-                  setValue({...value, status: 'Disabled', code_status: 2});
-                } else {
-                  null;
-                }
-              }}
+            <Input
+              editable={canEdit}
+              label="Description"
+              value={value.description}
+              multiline={true}
+              numberOfLines={7}
+              handle={handleDesc}
             />
+            <View style={{flexDirection: 'row', marginLeft: -11}}>
+              <CheckBox
+                checkedIcon="dot-circle-o"
+                uncheckedIcon="circle-o"
+                title="Active"
+                checkedColor="gray"
+                checked={checked.active}
+                onPress={() => {
+                  if (canEdit) {
+                    setChecked({active: true, disabled: false});
+                    setValue({...value, status: 'Active', code_status: 1});
+                  } else {
+                    null;
+                  }
+                }}
+              />
+              {console.log(doc)}
+              <CheckBox
+                checkedIcon="dot-circle-o"
+                uncheckedIcon="circle-o"
+                title="Disabled"
+                checkedColor="gray"
+                checked={checked.disabled}
+                onPress={() => {
+                  if (canEdit) {
+                    setChecked({active: false, disabled: true});
+                    setValue({...value, status: 'Disabled', code_status: 2});
+                  } else {
+                    null;
+                  }
+                }}
+              />
+            </View>
           </View>
-        </View>
-      </ScrollView>
-      {data ? null : <MainMenu active="Assets" />}
-    </View>
+        </ScrollView>
+        {doc ? (
+          <FloatingButton
+            btnEdit={true}
+            btnDelete={true}
+            style={{bottom: 25}}
+            handleDelete={handleDelete}
+            handleChange={handleChange}
+            toggleEdit={toggleEdit}
+            canEdit={canEdit}
+          />
+        ) : null}
+      </View>
+      <MainMenu />
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import {Api_Url} from '../../config/services';
 import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
 import {selectValue} from '../../config/redux/slices/valueSlice';
+import axios from 'axios';
 
 const AssetScreen = () => {
   const [data, setData] = useState([]);
@@ -16,28 +17,31 @@ const AssetScreen = () => {
   const [isLoading, setIsloading] = useState(false);
 
   const publicFilter = useSelector(selectValue);
-  const [isReload, setIsReload] = useState(false);
+  // const [isReload, setIsReload] = useState(false);
 
   const getItem = () => {
     setIsloading(true);
-    fetch(`${Api_Url}items`)
+    axios
+      .get(`${Api_Url}items`)
       .then(res => {
-        res.json().then(json => {
-          setData(json.data);
-          setIsloading(false);
-        });
+        setData(res.data.data);
+        setIsloading(false);
       })
       .catch(err => {
         throw err;
       });
   };
 
-  const getDelete = async e => {
-    const hapus = await fetch(`${Api_Url}items/${e}`, {
-      method: 'DELETE',
-    });
-    const refreshItem = await getItem();
-    return refreshItem;
+  const getDelete = e => {
+    axios
+      .delete(`${Api_Url}items/${e}`)
+      .then(res => {
+        Alert.alert('Deleted', 'Data Success To Delete');
+        getItem();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const handleDelete = e => {

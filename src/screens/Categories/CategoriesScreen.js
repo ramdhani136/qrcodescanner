@@ -1,25 +1,38 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, View, Text} from 'react-native';
+import {Alert, View} from 'react-native';
 import {List, MainMenu, TitleScreen} from '../../components/organisms';
 import {Api_Url} from '../../config/services';
 import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
+import axios from 'axios';
 
 const CategoriesScreen = () => {
   const [data, setData] = useState([]);
   const navigation = useNavigation();
   const [filter, setFilter] = useState({});
   const [isLoading, setIsloading] = useState(false);
-  const [isReload, setIsReload] = useState(false);
+
+  // const getCategorys = () => {
+  //   setIsloading(true);
+  //   fetch(`${Api_Url}categorys`)
+  //     .then(res => {
+  //       res.json().then(json => {
+  //         setData(json.data);
+  //         setIsloading(false);
+  //       });
+  //     })
+  //     .catch(err => {
+  //       throw err;
+  //     });
+  // };
 
   const getCategorys = () => {
     setIsloading(true);
-    fetch(`${Api_Url}categorys`)
+    axios
+      .get(`${Api_Url}categorys`)
       .then(res => {
-        res.json().then(json => {
-          setData(json.data);
-          setIsloading(false);
-        });
+        setData(res.data.data);
+        setIsloading(false);
       })
       .catch(err => {
         throw err;
@@ -30,32 +43,20 @@ const CategoriesScreen = () => {
     getCategorys();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getCategorys();
-    }, 30000);
-
-    if (!isReload) {
-      clearInterval(interval);
-    }
-
-    return () => clearInterval(interval);
-  }, [isReload]);
-
   const handleSearch = e => {
     setFilter({...filter, search: e});
   };
 
-  const toggleReload = e => {
-    setIsReload(e);
-  };
-
-  const getDelete = async e => {
-    const hapus = await fetch(`${Api_Url}categorys/${e}`, {
-      method: 'DELETE',
-    });
-    const refreshItem = await getCategorys();
-    return refreshItem;
+  const getDelete = e => {
+    axios
+      .delete(`${Api_Url}categorys/${e}`)
+      .then(res => {
+        Alert.alert('Deleted', 'Data success to delete');
+        getCategorys();
+      })
+      .catch(err => {
+        Alert.alert('Error', 'Cannot delete this category!');
+      });
   };
 
   const handleDelete = e => {
@@ -91,14 +92,13 @@ const CategoriesScreen = () => {
           isLoading={isLoading}
           data={{
             api: filterdata(data),
-            viewScreen: 'ViewCategoriesScreen',
+            viewScreen: 'CreateCategoriesScreen',
           }}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
           handleSearch={handleSearch}
           handleData={getCategorys}
           doc="Category"
-          toggleReload={toggleReload}
         />
       </View>
       <MainMenu />
