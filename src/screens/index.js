@@ -5,4 +5,3 @@ export {default as CreateAssetScreen} from './Asset/CreateAssetScreen';
 export {default as LoginScreen} from './LoginScreen';
 export {default as CategoriesScreen} from './Categories/CategoriesScreen';
 export {default as CreateCategorieScreen} from './Categories/CreateCategorieScreen';
-export {default as ViewCategoriesScreen} from './Categories/ViewCategoriesScreen';
