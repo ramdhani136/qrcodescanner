@@ -58,12 +58,13 @@ const ScrollVerticalMenus = () => {
         titleColor="#dffbff"
       />
       <ScrollVerticalItem
+        onPress={() => navigation.navigate('UomScreen')}
         Icon={FontAwesome5}
-        IconName="cart-arrow-down"
+        IconName="tasks"
         IconSize={25}
         IconColor="#dffbff"
-        title="Purchase Request"
-        qty="3"
+        title="UOM"
+        qty="125"
         bg="#01b1ea"
         qtyColor="white"
         titleColor="#dffbff"
@@ -192,11 +193,11 @@ const ScrollVerticalMenus = () => {
       <ScrollVerticalItem
         onPress={() => navigation.navigate('UomScreen')}
         Icon={FontAwesome}
-        IconName="tasks"
+        IconName="cart-arrow-down"
         IconSize={25}
         IconColor="#dffbff"
-        title="UOM"
-        qty="123"
+        title="Purchase Request"
+        qty="342"
         bg="#01b1ea"
         qtyColor="white"
         titleColor="#dffbff"

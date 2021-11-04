@@ -1,19 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {ScrollView, StyleSheet, View, Alert} from 'react-native';
 import {FloatingButton, Input} from '../../components/atoms';
 import {Api_Url} from '../../config/services';
 import {MainMenu, TitleScreen} from './../../components/organisms/';
-// import {useSelector} from 'react-redux';
-// import {selectUser} from '../../config/redux/slices/UserSlices';
 import {CheckBox} from 'react-native-elements';
-import {setNumber} from '../../utils/setNomor';
 import {useNavigation} from '@react-navigation/native';
 
 const CreateLocationScreen = ({route}) => {
