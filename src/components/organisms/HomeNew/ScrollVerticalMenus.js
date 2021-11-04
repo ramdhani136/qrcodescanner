@@ -189,6 +189,18 @@ const ScrollVerticalMenus = () => {
         qtyColor="white"
         titleColor="#dffbff"
       />
+      <ScrollVerticalItem
+        onPress={() => navigation.navigate('UomScreen')}
+        Icon={FontAwesome}
+        IconName="tasks"
+        IconSize={25}
+        IconColor="#dffbff"
+        title="UOM"
+        qty="123"
+        bg="#01b1ea"
+        qtyColor="white"
+        titleColor="#dffbff"
+      />
     </ScrollView>
   );
 };

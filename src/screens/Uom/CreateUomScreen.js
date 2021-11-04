@@ -1,22 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {ScrollView, StyleSheet, View, Alert} from 'react-native';
 import {FloatingButton, Input} from '../../components/atoms';
 import {Api_Url} from '../../config/services';
 import {MainMenu, TitleScreen} from './../../components/organisms/';
-// import {useSelector} from 'react-redux';
-// import {selectUser} from '../../config/redux/slices/UserSlices';
 import {CheckBox} from 'react-native-elements';
-import {setNumber} from '../../utils/setNomor';
 import {useNavigation} from '@react-navigation/native';
 
-const CreateLocationScreen = ({route}) => {
+const CreateUomScreen = ({route}) => {
   const doc = route.params;
   const navigation = useNavigation();
   const defaultValue = {
@@ -26,7 +16,7 @@ const CreateLocationScreen = ({route}) => {
     description: null,
   };
 
-  const [locations, setLocations] = useState([]);
+  const [uoms, setUoms] = useState([]);
   const [validasi, setValidasi] = useState({
     name: true,
   });
@@ -35,11 +25,11 @@ const CreateLocationScreen = ({route}) => {
   const [canEdit, setCanEdit] = useState(true);
   const [isDup, setIsDup] = useState(0);
 
-  const getLocations = () => {
-    fetch(`${Api_Url}locations`)
+  const getUom = () => {
+    fetch(`${Api_Url}uom`)
       .then(res => {
         res.json().then(json => {
-          setLocations(json.data);
+          setUoms(json.data);
         });
       })
       .catch(err => {
@@ -78,15 +68,15 @@ const CreateLocationScreen = ({route}) => {
     if (validasi.name) {
       Alert.alert('Error', 'Check your form!');
     } else {
-      const upload = await fetch(`${Api_Url}locations`, {
+      const upload = await fetch(`${Api_Url}uom`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
         body: JSON.stringify(value),
       })
         .then(res => {
-          Alert.alert('Success', 'Location added successfully');
-          navigation.replace('LocationScreen');
+          Alert.alert('Success', 'Uom added successfully');
+          navigation.replace('UomScreen');
         })
         .catch(err => {
           throw err;
@@ -96,7 +86,7 @@ const CreateLocationScreen = ({route}) => {
 
   const handleDelete = () => {
     Alert.alert('Delete', 'Are you sure?', [
-      {text: 'NO', onPress: () => getLocations(), style: 'cancel'},
+      {text: 'NO', onPress: () => getUom(), style: 'cancel'},
       {text: 'YES', onPress: () => getDelete()},
     ]);
   };
@@ -110,11 +100,11 @@ const CreateLocationScreen = ({route}) => {
   };
 
   const getDelete = async e => {
-    const hapus = await fetch(`${Api_Url}locations/${doc.id}`, {
+    const hapus = await fetch(`${Api_Url}uom/${doc.id}`, {
       method: 'DELETE',
     });
     const showAlert = await Alert.alert('Delete', 'data has been deleted ');
-    const redirectScreen = await navigation.replace('LocationScreen');
+    const redirectScreen = await navigation.replace('UomScreen');
     return redirectScreen;
   };
 
@@ -125,20 +115,20 @@ const CreateLocationScreen = ({route}) => {
       status: value.status,
       code_status: value.code_status,
     };
-    const edit = await fetch(`${Api_Url}locations/${doc.id}`, {
+    const edit = await fetch(`${Api_Url}uom/${doc.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       credentials: 'include',
       body: JSON.stringify(updateValue),
     });
     const showAlert = await Alert.alert('Changed', 'Data has been changed  ');
-    const redirectScreen = await navigation.replace('LocationScreen');
+    const redirectScreen = await navigation.replace('UomScreen');
     return redirectScreen;
   };
 
   useEffect(() => {
-    getLocations();
-    const isThere = locations.filter(
+    getUom();
+    const isThere = uoms.filter(
       item => item.name.toLowerCase() == value.name.toLowerCase(),
     );
     isThere ? setIsDup(isThere.length) : 0;
@@ -156,7 +146,7 @@ const CreateLocationScreen = ({route}) => {
     } else {
       setValidasi({...validasi, name: false});
     }
-  }, [locations]);
+  }, [uoms]);
 
   useEffect(() => {
     doc ? setValue(doc) : null;
@@ -175,11 +165,7 @@ const CreateLocationScreen = ({route}) => {
     <>
       <View style={[styles.container, {paddingTop: doc ? 16 : 0}]}>
         {doc ? null : (
-          <TitleScreen
-            title="New Location"
-            btnSubmit={true}
-            onSubmit={onSubmit}
-          />
+          <TitleScreen title="New UOM" btnSubmit={true} onSubmit={onSubmit} />
         )}
         <ScrollView>
           <View style={{flex: 1, marginHorizontal: 16}}>
@@ -270,4 +256,4 @@ const styles = StyleSheet.create({
   containerInput: {marginVertical: 5},
 });
 
-export default CreateLocationScreen;
+export default CreateUomScreen;

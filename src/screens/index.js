@@ -7,3 +7,5 @@ export {default as CategoriesScreen} from './Categories/CategoriesScreen';
 export {default as CreateCategorieScreen} from './Categories/CreateCategorieScreen';
 export {default as LocationScreen} from './Locations/LocationScreen';
 export {default as CreateLocationScreen} from './Locations/CreateLocationScreen';
+export {default as UomScreen} from './Uom/UomScreen';
+export {default as CreateUomScreen} from './Uom/CreateUomScreen';

@@ -14,6 +14,8 @@ import {
   CreateCategorieScreen,
   LocationScreen,
   CreateLocationScreen,
+  UomScreen,
+  CreateUomScreen,
 } from '../../screens';
 
 const Router = () => {
@@ -74,6 +76,16 @@ const Router = () => {
         <Stack.Screen
           name="CreateLocationScreen"
           component={CreateLocationScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="UomScreen"
+          component={UomScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CreateUomScreen"
+          component={CreateUomScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
